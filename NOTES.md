@@ -3,32 +3,33 @@ Just to keep track where each csv entries are taken from.
 ### CSV Files with dedicated table(s)
 These are in their own csv files.
 
-| Content                          | Category ID        |
-| -------------------------------- | ------------------ |
+| Content                          | Category ID        | Char Limit per Line / Number of Lines / Word Break |
+| -------------------------------- | ------------------ | -------------------------------------------------- |
 | Advice                           | 97                 |
 | Campaigns                        | 70                 |
 | Conditions Desc                  | 143                |
 | Conditions Name                  | 142                |
 | Factor Desc                      | 172                |
-| Gacha Info                       | 13, 26             |
-| Help Popup Text                  | 63                 |
+| Gacha Info                       | 13                 | 55 / 1 / n/a
+| Gacha Names                      | 26                 | 45 / 1 / n/a
+| Help Popup Text                  | 63                 | 256 / 5 (+ small overflow space) / yes
 | Item Desc                        | 24                 |
 | Item Name                        | 23                 |
-| Item Name (Uma Pieces)           | 113                |
+| Item Name (Uma Pieces)           | 113                | 15 / 1 / n/a
 | Item Uma Piece Desc              | 114                |
-| Loading Screens                  | 69                 |
+| Loading Screens                  | 69                 | 40? (81 total?) / 2? / no?
 | Missions                         | 67                 |
-| Mission Groups                   | 187                |
+| Mission Groups                   | 187                | 25 / 2 / yes
 | Mob NPC Name                     | 59                 |
-| Presents Desc                    | 64                 |
+| Presents Desc                    | 64                 | 24 / 2 / no
 | PVP Bonus Score Name             | 148                |
 | PVP Raw Score Desc               | 141                |
 | PVP Raw Score Name               | 140                |
 | Race Name                        | 28, 29, 32, 33, 36 |
-| Race Predictions                 | 72                 |
-| Skill Desc                       | 48                 |
+| Race Predictions                 | 27                 | ? / ? / yes
+| Skill Desc                       | 48                 | 47 (size 22) / 3 / yes?
 | Skill Name                       | 47                 |
-| Special Transfer Desc            | 216                |
+| Special Transfer Desc            | 216                | 66
 | Special Transfer Name            | 215                |
 | Special Transfer Requirements    | 217                |
 | Special Transfer Thanks          | 220                |
@@ -41,9 +42,9 @@ These are in their own csv files.
 | Support Unique Effect Name       | 150                |
 | Uma Name                         | 6                  |
 | Uma Title                        | 5                  |
-| Uma Nickname                     | 130                |
+| Uma Nickname                     | 130                | 17 (overflow up to 20)/ 1 / n/a
 | Uma Nickname Requirements        | 131                |
-| Uma Taglines                     | 144                |
+| Uma Taglines                     | 144                | 24 / 3 / no
 | Uma Weight                       | 9                  |
 | Story Event Mission              | 190                |
 | Trainer Title                    | 65                 |
