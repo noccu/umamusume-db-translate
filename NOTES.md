@@ -14,6 +14,8 @@ These are in their own csv files.
 | Help Popup Text                  | 63                 |
 | Item Desc                        | 24                 |
 | Item Name                        | 23                 |
+| Item Uma Piece Desc              | 114                |
+| Loading Screens                  | 69                 |
 | Missions                         | 67                 |
 | Mission Groups                   | 187                |
 | Mob NPC Name                     | 59                 |
@@ -33,7 +35,9 @@ These are in their own csv files.
 | Support Effect Desc              | 154                |
 | Support Effect Name              | 151                |
 | Support Effect Title             | 76                 |
+| Support Full Name                | 75                 |
 | Support Unique Effect            | 155                |
+| Support Unique Effect Name       | 150                |
 | Uma Name                         | 6                  |
 | Uma Title                        | 5                  |
 | Uma Nickname                     | 130                |
@@ -56,3 +60,4 @@ These don't have too much content to justify creating a new csv file for each on
 | Training details   | 138                |
 | School grade/level | 162                |
 | Lottery rewards    | 177                |
+| Horse & NPC names? | 150 & 182          |

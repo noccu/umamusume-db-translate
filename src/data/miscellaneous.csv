@@ -31,6 +31,10 @@
 "小倉","KOK"
 "大井","OOI"
 
+"114 - Uma piece descriptions"
+"選択したウマ娘のピース。育成ウマ娘の解放や才能開花などに使用できる。","A piece of the selected Uma Musu.\nCan be used to obtain or upgrade Uma Musu."
+"育成ウマ娘の解放や才能開花などで使用。\n育成ウマ娘ごとの願いが結晶化された専用のピース。","Used to obtain Uma Musu and develop their talents.\nA special piece with the crystallized wishes of a horse girl."
+
 "121 - Fan Pyramid"
 "デビュー","Debut"
 "未勝利","Maiden"
@@ -96,3 +100,14 @@
 "にんじん山盛り","Pile of Carrots"
 "にんじん1本","One Carrot"
 "ティッシュ","Tissue"
+
+"182 & 170 - Mostly horse names (already translated by 6) with some NPCs, listed here"
+"ハヤカワタヅナ","<i>Hayakawa Tazuna</i>"
+"アキカワヤヨイ","<i>Akikawa Yayoi</i>"
+"オトナシエツコ","<i>Otonashi Etsuko</i>"
+"キリュウインアオイ","<i>Kiryuuin Aoi</i>"
+"アンシンザワササミ","<i>Anshinzawa Sasami</i>"
+"カシモトリコ","<i>Kashimoto Riko</i>"
+"秋川やよい","Akikawa Yayoi"
+"乙名史悦子","Otonashi Etsuko"
+"桐生院葵","Kiryuuin Aoi"
