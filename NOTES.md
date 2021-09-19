@@ -47,6 +47,7 @@ These are in their own csv files.
 | Story Event Mission              | 190                |
 | Trainer Title                    | 65                 |
 | Trainer Title Requirements       | 66                 |
+| Tutorial Text                    | 3                  |
 
 ### Miscellaneous CSV
 These don't have too much content to justify creating a new csv file for each one of them.
