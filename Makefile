@@ -33,6 +33,7 @@ append-timestamp: build
 build-json:
 	@echo "$(OK_COLOR)==> Converting csv files into a single json… $(NO_COLOR)"
 	@cat src/data/*.csv | jq -sRf src/csvtojson.jq > src/data/data.json
+	@./src/build-additional.sh
 
 build: clean build-json
 	@echo "$(OK_COLOR)==> Building static page… $(NO_COLOR)"
@@ -40,6 +41,8 @@ build: clean build-json
 	@cp src/index.html public/index.html
 	@cp src/script.js public/script.js
 	@cp src/data/data.json public/data.json
+	@cp src/data/additional/*.json public
+	@cp src/cfg.json public/cfg.json
 
 clean:
 	@echo "$(OK_COLOR)==> Cleaning project… $(NO_COLOR)"

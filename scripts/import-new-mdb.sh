@@ -14,7 +14,7 @@ function import {
 
   TEMP_FILE=$(mktemp)
   TEMP_FILE_2=$(mktemp)
-  QUERY="SELECT text FROM text_data WHERE category = $3"
+  QUERY="SELECT DISTINCT text FROM text_data WHERE category = $3"
 
   sqlite3 "$1" "$QUERY" > "$TEMP_FILE"
   ./scripts/merge-csv.sh "$TEMP_FILE" "$2" > "$TEMP_FILE_2"

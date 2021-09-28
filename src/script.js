@@ -4,9 +4,15 @@ let db;
 
 // fetchTranslationJSON returns json containing translation data
 // append timestamp to get fresh copy since github pages caching is aggressive
-const fetchTranslationJSON = async () => {
+const fetchTranslationJSON = async (file) => {
   const timestamp = new Date().getTime();
-  const body = await fetch(`data.json?${timestamp}`);
+  const body = await fetch(`${file}?${timestamp}`);
+  return await body.json();
+}
+
+const fetchConfigJSON = async () => {
+  const timestamp = new Date().getTime();
+  const body = await fetch(`cfg.json?${timestamp}`);
   return await body.json();
 }
 
@@ -42,9 +48,9 @@ const savedb = db => {
 };
 
 // process translates the loaded db and exports it
-const process = async (db) => {
-  const findAndReplaceStatement = db.prepare("UPDATE `text_data` SET `text`=:replace WHERE `text`=:search");
-  const data = await fetchTranslationJSON();
+const process = async (db, {table, field, file}) => {
+  const findAndReplaceStatement = db.prepare(`UPDATE ${table} SET ${field}=:replace WHERE ${field}=:search`);
+  const data = await fetchTranslationJSON(file);
 
   // Search and replace for every item in data.json
   for (const jpText in data) {
@@ -56,6 +62,14 @@ const process = async (db) => {
       ":search":  jpText,
       ":replace": enText,
     });
+  }
+};
+
+const translate = async (db) => {
+  const cfg = await fetchConfigJSON();
+
+  for (let entry of cfg) {
+    await process(db, entry);
   }
 
   // Serve back to user
@@ -73,7 +87,7 @@ const listenFileChange = () => {
     reader.addEventListener("load", () => {
       let uints = new Uint8Array(reader.result);
       db = new SQL.Database(uints);
-      process(db);
+      translate(db);
     });
     reader.readAsArrayBuffer(file);
   });

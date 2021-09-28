@@ -1,0 +1,7 @@
+[
+    {
+        "table": "text_data",
+        "field": "text",
+        "file": "data.json"
+    }
+]

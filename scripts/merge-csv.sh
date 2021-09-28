@@ -19,9 +19,13 @@ fi
 echo '"text", "translation"'
 
 # Loop through each line in <new-text>
-# awk used here to remove duplicates
+# tr used here to fix issues when sqlite outputs CRLF lines
 IFS=
-cat "$1" | awk '!x[$0]++' | while read -r LINE; do
+cat "$1" | tr -d "\r" | while read -r LINE; do
+  #ignore empty lines
+  if [[ "$LINE" == $'\n' ]]; then
+    continue
+  fi
   # Try to find skill in <old-csv>
   # -F used here to match fixed strings (for `\n`s)
   TEXT="$(grep -F "\"$LINE\"" "$2" )"
