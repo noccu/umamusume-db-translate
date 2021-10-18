@@ -80,18 +80,27 @@ const translate = async (db) => {
 // and fires process() with the loaded db
 const listenFileChange = () => {
   const dbFileEl = document.getElementById("dbfile");
-  dbFileEl.addEventListener("change", async (e) => {
-    const file = dbFileEl.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener("load", () => {
-      let uints = new Uint8Array(reader.result);
-      db = new SQL.Database(uints);
-      translate(db);
-    });
-    reader.readAsArrayBuffer(file);
+  dbFileEl.addEventListener("change", async () => {
+    readFile(dbFileEl.files[0]);
   });
 
+  dbFileEl.parentElement.addEventListener("dragover", e => e.preventDefault());
+  dbFileEl.parentElement.addEventListener("drop", e => {
+    e.preventDefault();
+    readFile(e.dataTransfer.files[0]);
+  });
+}
+
+async function readFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+
+  reader.addEventListener("load", () => {
+    let uints = new Uint8Array(reader.result);
+    db = new SQL.Database(uints);
+    translate(db);
+  });
+  reader.readAsArrayBuffer(file);
 }
 
 // We need an async main because javascript
