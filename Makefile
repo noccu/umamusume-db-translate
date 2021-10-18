@@ -40,6 +40,7 @@ build: clean build-json
 	@mkdir public
 	@cp src/index.html public/index.html
 	@cp src/script.js public/script.js
+	@cp src/worker.js public/worker.js
 	@cp src/data/data.json public/data.json
 	@cp src/data/additional/*.json public
 	@cp src/cfg.json public/cfg.json

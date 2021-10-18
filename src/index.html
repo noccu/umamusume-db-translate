@@ -7,6 +7,7 @@
     <meta property="og:type" content="website">
     <meta property="og:description" content="Translates master.mdb for in-game english translation">
     <title>Umamusume DB Translate</title>
+    <script src="./script.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous">
     <style type="text/css">
     html, body, .container {
@@ -16,6 +17,13 @@
 
     .jumbotron {
       width: 100%;
+    }
+    #tl-prog-cont {
+      visibility: hidden;
+    }
+    #tl-prog-cont > * {
+      display: block;
+      margin: auto;
     }
     </style>
   </head>
@@ -29,13 +37,17 @@
         </p>
         <h3>Usage</h3>
         <ol>
-          <li>Locate your <code>master.mdb</code> file after clicking the button below</li>
+          <li>Locate your <code>master.mdb</code> file after clicking the button below, or drag and drop it in the area</li>
           <small>By default it is located at <code>C:\Users\YourUsername\AppData\LocalLow\Cygames\umamusume\master\master.mdb</code></small>
           <li>Replace the game <code>master.mdb</code> file with the translated <code>master.mdb</code> file</li>
         </ol>
         <div class="text-center m-5">
           <input id="dbfile" type="file" hidden>
           <label for="dbfile" class="btn btn-lg btn-primary">Choose File</label>
+          <div id="tl-prog-cont">
+            <label for="tl-progress">Translating<span id="tl-progress-part"></span>...</label>
+            <progress id="tl-progress" value="0" max="100"></progress>
+          </div>
         </div>
         <h3>Notes and Caveats</h3>
         <ul>
@@ -51,8 +63,5 @@
         </ul>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.4.0/dist/sql-wasm.js" integrity="sha512-8oJoeo0ykAzuJzQFJDnwz9t4Rr+1xue7LFX+kr0NJMpOHH9QJPC563If+sakheUe3QbLwTTgXIGPC6YZTwp7Iw==" crossorigin="anonymous"></script>
-    <script type="text/javascript">window.sql_wasm_path = "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.4.0/dist";</script>
-    <script src="./script.js"></script>
   </body>
 </html>
