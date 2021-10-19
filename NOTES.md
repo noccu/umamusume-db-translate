@@ -14,6 +14,7 @@ These are in their own csv files.
 | Help Popup Text                  | 63                 |
 | Item Desc                        | 24                 |
 | Item Name                        | 23                 |
+| Item Name (Uma Pieces)           | 113                |
 | Item Uma Piece Desc              | 114                |
 | Loading Screens                  | 69                 |
 | Missions                         | 67                 |
