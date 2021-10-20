@@ -17,7 +17,7 @@ These are in their own csv files.
 | Item Name                        | 23                 |
 | Item Name (Uma Pieces)           | 113                | 15 / 1 / n/a
 | Item Uma Piece Desc              | 114                |
-| Loading Screens                  | 69                 | 40? (81 total?) / 2? / no?
+| Loading Screens                  | 69                 | 27 (81 total?) / 3 (cuts off) / no
 | Missions                         | 67                 |
 | Mission Groups                   | 187                | 25 / 2 / yes
 | Mob NPC Name                     | 59                 |
@@ -39,7 +39,7 @@ These are in their own csv files.
 | Support Effect Title             | 76                 |
 | Support Full Name                | 75                 |
 | Support Unique Effect            | 155                |
-| Support Unique Effect Name       | 150                |
+| Support Unique Effect Name       | 150                | 25 / 1 (overflow up to 2) / yes
 | Uma Name                         | 6                  |
 | Uma Title                        | 5                  |
 | Uma Nickname                     | 130                | 17 (overflow up to 20)/ 1 / n/a
