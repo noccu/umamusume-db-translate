@@ -2,6 +2,11 @@
     {
         "table": "text_data",
         "field": "text",
-        "file": "data.json"
+        "file": "data.json",
+        "overrides": {
+            "opt-skill": {
+                "data": "alt/skill-desc.json"
+            }
+        }
     }
 ]

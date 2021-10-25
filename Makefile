@@ -43,6 +43,7 @@ build: clean build-json
 	@cp src/worker.js public/worker.js
 	@cp src/data/data.json public/data.json
 	@cp src/data/additional/*.json public
+	@cp -r src/data/alt/  public/alt
 	@cp src/cfg.json public/cfg.json
 
 clean:

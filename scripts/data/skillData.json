@@ -1,0 +1,83 @@
+{
+  "ability_type": {
+    "1": "Speed stat",
+    "2": "Stamina stat",
+    "3": "Power stat",
+    "4": "Guts stat",
+    "5": "Wisdom stat",
+    "8": "Field of View",
+    "9": "Stamina/HP",
+    "10": "Improve Start Reaction Time",
+    "13": "Kakari Time",
+    "21": "Current Speed",
+    "27": "Target Speed",
+    "28": "Lane Movement Speed",
+    "31": "Acceleration"
+  },
+  "target_type": {
+    "comment": "0 == n/a, 1 == self",
+    "4": "in FOV",
+    "9": "ahead",
+    "10": "behind",
+    "18": "(all)",
+    "19": "kakari ahead",
+    "20": "kakari behind",
+    "21": "(all kakari)"
+  },
+  "target_value": {
+    "1": "Runners",
+    "2": "Leaders",
+    "3": "Betweeners",
+    "4": "Chasers",
+    "18": "All"
+  },
+  "conditions": {
+    "distance_type": {
+      "lookup": {
+        "1": "Short",
+        "2": "Mile",
+        "3": "Medium",
+        "4": "Long"
+      },
+      "string": "$ Distance"
+    },
+    "running_style": {
+      "lookup": {
+        "1": "Runner",
+        "2": "Leader",
+        "3": "Betweener",
+        "4": "Chaser"
+      },
+      "==": "$"
+    },
+    "distance_rate": {
+      ">=": "After $% distance",
+      "<=": "Before $% distance"
+    },
+    "order_rate": {
+      ">=": "In trailing $% (incl)",
+      ">": "In trailing $% (excl)",
+      "<=": "In leading $% (incl)",
+      "<": "In leading $% (excl)"
+    },
+    "order": {
+      "==": "Position $",
+      ">=": "Pos $ or worse",
+      "<=": "Pos $ or better"
+    },
+    "corner": {
+      "==": "On straight",
+      "!=": "In corner"
+    },
+    "phase": {
+      "lookup": {
+        "0": "Opening leg",
+        "1": "Middle leg",
+        "2": "Final leg"
+      },
+      "==": "$",
+      ">=": "$ or later",
+      "<=": "$ or before"
+    }
+  }
+}

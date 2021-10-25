@@ -31,16 +31,20 @@ function translate({ parts, dataMax }) {
 
 function listenFileChange() {
     const dbFileEl = document.getElementById("dbfile");
+    function getOvr() {
+        return Array.prototype.reduce.call(document.querySelectorAll("#overrides input:checked"), (o, v) => { o[v.name] = v.value; return o}, {});
+    }
+
     dbFileEl.addEventListener("change", () => {
         //* msg
-        WORKER.postMessage({ action: "readFile", payload: dbFileEl.files[0] })
+        WORKER.postMessage({ action: "readFile", payload: [dbFileEl.files[0], getOvr()] })
     });
 
     dbFileEl.parentElement.addEventListener("dragover", e => e.preventDefault());
     dbFileEl.parentElement.addEventListener("drop", e => {
         e.preventDefault();
         //* msg
-        WORKER.postMessage({ action: "readFile", payload: e.dataTransfer.files[0] })
+        WORKER.postMessage({ action: "readFile", payload: [e.dataTransfer.files[0], getOvr()] })
     });
 }
 listenFileChange();

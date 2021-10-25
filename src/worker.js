@@ -5,8 +5,8 @@ const sql_wasm_path = "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.4.0/dist"
 let SQL;
 
 onmessage = function ({ data: { action, payload } }) {
-    if (self[action]) {
-        self[action](payload);
+    if (self[action] && typeof self[action] == "function") {
+        self[action].apply(this, Array.isArray(payload) ? payload : [payload]);
     }
 }
 
@@ -25,7 +25,7 @@ function saveDB(db) {
         })
         return self.URL.createObjectURL(blob)
     }
-    
+
     const data = db.export();
     let blobUrl = createBlob(data, "application/x-sqlite3");
     postMessage({ action: "saveDB", payload: blobUrl })
@@ -51,13 +51,17 @@ function process(db, data, { table, field }) {
     findAndReplaceStatement.free();
 };
 
-async function translate(db) {
+async function translate(db, opts) {
     const cfg = await fetchJSON("cfg.json");
     let i = 1;
 
     for (let entry of cfg) {
         let data = await fetchJSON(entry.file);
 
+        //Override
+        if (entry.overrides) {
+            await optionOverride(data, entry.overrides, opts);
+        }
         //* msg
         let payload = {};
         payload.parts = cfg.length == 1 ? "" : ` ${i++}/${cfg.length}`;
@@ -73,14 +77,14 @@ async function translate(db) {
 
 // loads picked file as sqlite database
 // and fires the translation process with the loaded db
-function readFile(file) {
+function readFile(file, opts) {
     if (!file) return;
     const reader = new FileReader();
 
     reader.addEventListener("load", async () => {
         let uints = new Uint8Array(reader.result);
         let db = new SQL.Database(uints);
-        translate(db);
+        translate(db, opts);
     });
 
     initSqlJs({ locateFile: file => `${sql_wasm_path}/${file}` })
@@ -88,4 +92,17 @@ function readFile(file) {
             SQL = sqlJs;
             reader.readAsArrayBuffer(file);
         });
+}
+
+function optionOverride(data, list, chosen) {
+    for (let [name, ovr] of Object.entries(list)) {
+        let file = ovr[chosen[name]];
+        if (file) {
+            return fetchJSON(file).then(newJson => {
+                for (let [key, val] of Object.entries(newJson)) {
+                    data[key] = val;
+                }
+            })
+        }
+    }
 }

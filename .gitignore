@@ -4,4 +4,6 @@ public
 *.json
 !cfg.json
 !package.json
+!src/data/alt/*
 node_modules/
+!scripts/data/*
