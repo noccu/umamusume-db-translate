@@ -39,7 +39,7 @@
         "3": "Medium",
         "4": "Long"
       },
-      "string": "$ Distance"
+      "string": "$"
     },
     "running_style": {
       "lookup": {
@@ -55,15 +55,22 @@
       "<=": "Before $% distance"
     },
     "order_rate": {
-      ">=": "In trailing $% (incl)",
-      ">": "In trailing $% (excl)",
-      "<=": "In leading $% (incl)",
-      "<": "In leading $% (excl)"
+      ">=": "In trailing $%",
+      ">": "In trailing <$%",
+      "<=": "In leading $%",
+      "<": "In leading <$%"
     },
     "order": {
       "==": "Position $",
-      ">=": "Pos $ or worse",
-      "<=": "Pos $ or better"
+      ">=": "Position ≥$",
+      "<=": "Position ≤$"
+    },
+    "change_order_onetime": {
+      "<": "Overtook",
+      ">": "Overtaken"
+    },
+    "is_overtake": {
+      "string": "Overtaking"
     },
     "corner": {
       "==": "On straight",
@@ -78,6 +85,37 @@
       "==": "$",
       ">=": "$ or later",
       "<=": "$ or before"
+    },
+    "phase_random": {
+      "lookup": {
+        "0": "Opening leg",
+        "1": "Middle leg",
+        "2": "Final leg"
+      },
+      "==": "$ (random pt)",
+      ">=": "$ or later (random pt)",
+      "<=": "$ or before (random pt)"
+    },
+    "accumulatetime":{
+      "string": "$s passed"
+    },
+    "is_finalcorner": {
+      "string": "Final corner/straight"
+    },
+    "slope": {
+      "lookup": {
+        "1": "Uphill",
+        "2": "Downhill"
+      },
+      "string": "$"
+    },
+    "bashin_diff_behind": {
+      "<=": "≤$ length(s) ahead",
+      ">=": "≥$ length(s) ahead"
+    },
+    "bashin_diff_infront": {
+      "<=": "≤$ length(s) behind",
+      ">=": "≥$ length(s) behind"
     }
   }
 }
