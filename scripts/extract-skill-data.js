@@ -22,6 +22,7 @@ const DATA_TL = JSON.parse(fs.readFileSync(DATA_TL_PATH, "utf-8"));
     const db = sqlite3(DB_PATH);
     const stmt = db.prepare(SQL_STMT).raw(true);
     let res = stmt.all();
+    db.close();
     res.forEach(row => {
         let [skill, ...data] = row;
         jsonOut[skill] = `<size=20>${translateData(data)}\\n</size>`;
@@ -38,13 +39,13 @@ function translateData(sqlData) {
         ...skill2] = sqlData;
 
     let outString = translateEffect(type, strength);
-    outString += translateTarget(targetType, targetValue);
+    if (targetType > 1) outString += translateTarget(targetType, targetValue);
 
     if (type2) outString += `, ${translateEffect(type2, strength2)}`;
-    outString += translateTarget(targetType2, targetValue2);
+    if (targetType2 > 1) outString += translateTarget(targetType2, targetValue2);
 
     if (type3) outString += `, ${translateEffect(type3, strength3)}`;
-    outString += translateTarget(targetType3, targetValue3);
+    if (targetType3 > 1) outString += translateTarget(targetType3, targetValue3);
 
     if (duration == -1) { duration = "indefinitely"; }
     else if (duration == 0) { duration = "immediately"; }
@@ -53,7 +54,7 @@ function translateData(sqlData) {
 
     outString += ` when: ${translateConditions(conditions)}`;
 
-    if (skill2.length && skill2[2] != "0") { outString += "\\n" + translateData(skill2) }
+    if (skill2.length && skill2[2] != 0) { outString += "\\n" + translateData(skill2) }
     return outString;
 }
 function translateEffect(type, strength) {

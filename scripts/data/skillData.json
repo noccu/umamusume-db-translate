@@ -84,7 +84,7 @@
       },
       "==": "$",
       ">=": "$ or later",
-      "<=": "$ or before"
+      "<=": "$ or earlier"
     },
     "phase_random": {
       "lookup": {
