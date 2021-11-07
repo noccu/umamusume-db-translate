@@ -9,7 +9,7 @@
     "7": "HP Decay Rate",
     "8": "Field of View",
     "9": "Current HP",
-    "10": "Start Reaction Time",
+    "10": ["Start Reaction Time", "1- -"],
     "11": "Force Overtake In",
     "12": "Force Overtake Out",
     "13": "Kakari Time",

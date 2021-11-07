@@ -60,8 +60,21 @@ function translateData(sqlData) {
 function translateEffect(type, strength) {
     let effect = DATA_TL.ability_type[type];
     strength = strength / 10000;
-    if (strength > 0) strength = "+" + strength;
-    // if (strength < 40) strength = strength.toLocaleString(undefined, {style: "percent"});
+
+    //todo: find something better, if needed...
+    if (Array.isArray(effect)) {
+        let edit = effect[1];
+        effect = effect[0];
+
+        edit.split(" ").forEach(f => {
+            if (f == "1-") strength = 1 - strength
+            else if (f == "-") strength *= -1
+        })
+    }
+
+    // Percentage tresh arbitrarily chosen
+    strength = strength.toLocaleString(undefined, {style: (Math.abs(strength) < 3) ? "percent" : "decimal", signDisplay:"exceptZero", useGrouping: false});
+    
     return `${effect} ${strength}`;
 }
 function translateTarget(type, value) {
