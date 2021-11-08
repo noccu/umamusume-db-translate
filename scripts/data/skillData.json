@@ -9,7 +9,7 @@
     "7": "HP Decay Rate",
     "8": "Field of View",
     "9": "Current HP",
-    "10": ["Start Reaction Time", "1- -"],
+    "10": ["Start Reaction Time", "1- inv"],
     "11": "Force Overtake In",
     "12": "Force Overtake Out",
     "13": "Kakari Time",
@@ -74,8 +74,8 @@
       "<=": "Position ≤$"
     },
     "order_rate": {
-      ">=": "In trailing $%",
-      ">": "In trailing <$%",
+      ">=": ["In trailing $%", "100-"],
+      ">": ["In trailing <$%", "100-"],
       "<=": "In leading $%",
       "<": "In leading <$%"
     },

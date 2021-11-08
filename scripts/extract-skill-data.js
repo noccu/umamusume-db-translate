@@ -63,13 +63,8 @@ function translateEffect(type, strength) {
 
     //todo: find something better, if needed...
     if (Array.isArray(effect)) {
-        let edit = effect[1];
-        effect = effect[0];
-
-        edit.split(" ").forEach(f => {
-            if (f == "1-") strength = 1 - strength
-            else if (f == "-") strength *= -1
-        })
+        strength = transformValue(strength, effect[1]);
+        effect = effect[0];        
     }
 
     // Percentage tresh arbitrarily chosen
@@ -77,6 +72,17 @@ function translateEffect(type, strength) {
     
     return `${effect} ${strength}`;
 }
+
+function transformValue(val, transforms) {
+    transforms.split(" ").forEach(f => {
+        let m = f.match(/(\d+)-/)
+        if (m) val = m[1] - val
+        else if (f == "inv") val *= -1
+        else if (f == "%") val /= 100
+    })
+    return val
+}
+
 function translateTarget(type, value) {
     if (type == 0 || type == 1) return "";
     type = DATA_TL.target_type[type];
@@ -96,6 +102,10 @@ function translateConditions(conditions) {
             }
             let text = condData.string || condData[op];
             if (!text) return; //just in case
+            if (Array.isArray(text)) {
+                val = transformValue(val, text[1]);
+                text = text[0];
+            }
             andSplit[idx] = text.replace("$", () => {
                 return condData.lookup?.[val] || val;
             });
