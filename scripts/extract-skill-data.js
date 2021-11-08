@@ -68,7 +68,7 @@ function translateEffect(type, strength) {
     }
 
     // Percentage tresh arbitrarily chosen
-    strength = strength.toLocaleString(undefined, {style: (Math.abs(strength) < 3) ? "percent" : "decimal", signDisplay:"exceptZero", useGrouping: false});
+    strength = strength.toLocaleString(undefined, {style: (Math.abs(strength) < 3) ? "percent" : "decimal", signDisplay:"exceptZero", useGrouping: false, maximumFractionDigits: 1});
     
     return `${effect} ${strength}`;
 }
