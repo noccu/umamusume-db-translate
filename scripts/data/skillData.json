@@ -5,14 +5,21 @@
     "3": "Power stat",
     "4": "Guts stat",
     "5": "Wisdom stat",
+    "6": "Max HP",
+    "7": "HP Decay Rate",
     "8": "Field of View",
-    "9": "Stamina/HP",
-    "10": "Improve Start Reaction Time",
+    "9": "Current HP",
+    "10": ["Start Reaction Time", "1- inv"],
+    "11": "Force Overtake In",
+    "12": "Force Overtake Out",
     "13": "Kakari Time",
     "21": "Current Speed",
     "27": "Target Speed",
     "28": "Lane Movement Speed",
-    "31": "Acceleration"
+    "29": "Kakari Chance",
+    "30": "Push Chance",
+    "31": "Acceleration",
+    "35": "Target Lane"
   },
   "target_type": {
     "comment": "0 == n/a, 1 == self",
@@ -41,6 +48,17 @@
       },
       "string": "$"
     },
+    "distance_rate": {
+      ">=": "After $% distance",
+      "<=": "Before $% distance"
+    },
+    "is_basis_distance": {
+      "lookup": {
+        "1": "Core Distance",
+        "0": "Non-Core Distance"
+      },
+      "==": "$"
+    },
     "running_style": {
       "lookup": {
         "1": "Runner",
@@ -50,20 +68,16 @@
       },
       "==": "$"
     },
-    "distance_rate": {
-      ">=": "After $% distance",
-      "<=": "Before $% distance"
-    },
-    "order_rate": {
-      ">=": "In trailing $%",
-      ">": "In trailing <$%",
-      "<=": "In leading $%",
-      "<": "In leading <$%"
-    },
     "order": {
       "==": "Position $",
       ">=": "Position ≥$",
       "<=": "Position ≤$"
+    },
+    "order_rate": {
+      ">=": ["In trailing $%", "100-"],
+      ">": ["In trailing <$%", "100-"],
+      "<=": "In leading $%",
+      "<": "In leading <$%"
     },
     "change_order_onetime": {
       "<": "Overtook",
@@ -71,10 +85,6 @@
     },
     "is_overtake": {
       "string": "Overtaking"
-    },
-    "corner": {
-      "==": "On straight",
-      "!=": "In corner"
     },
     "phase": {
       "lookup": {
@@ -84,23 +94,44 @@
       },
       "==": "$",
       ">=": "$ or later",
-      "<=": "$ or before"
+      "<=": "$ or earlier"
     },
     "phase_random": {
       "lookup": {
         "0": "Opening leg",
         "1": "Middle leg",
+        "2": "Final leg",
+        "3": "Last Spurt (phase)"
+      },
+      "==": "$ (random)",
+      ">=": "$ or later (random)",
+      "<=": "$ or before (random)"
+    },
+    "phase_laterhalf_random": {
+      "lookup": {
+        "0": "Opening leg",
+        "1": "Middle leg",
         "2": "Final leg"
       },
-      "==": "$ (random pt)",
-      ">=": "$ or later (random pt)",
-      "<=": "$ or before (random pt)"
+      "==": "$ later half (random)"
     },
-    "accumulatetime":{
-      "string": "$s passed"
+    "corner": {
+      "==": "On straight",
+      "!=": "In corner"
+    },
+    "corner_random": {
+      "==": "Corner $ (random point)"
+    },
+    "straight_random": {
+      "==": "Straight (random point)"
     },
     "is_finalcorner": {
-      "string": "Final corner/straight"
+      "==": "Final corner/straight",
+      "!=": "Not final corner/straight"
+    },
+    "is_lastspurt": {
+      "==": "Last spurt",
+      "!=": "Not last spurt"
     },
     "slope": {
       "lookup": {
@@ -109,6 +140,51 @@
       },
       "string": "$"
     },
+    "ground_type": {
+      "lookup": {
+        "1": "Grass",
+        "2": "Dirt"
+      },
+      "string": "$"
+    },
+    "ground_condition": {
+      "lookup": {
+        "1": "Good",
+        "2": "Dirt"
+      },
+      "string": "Track condition $"
+    },
+    "track_id": {
+      "string": "Track $"
+    },
+    "rotation": {
+      "lookup": {
+        "1": "CW track",
+        "2": "CCW track"
+      },
+      "string": "$"
+    },
+    "always": {
+      "string": "Always"
+    },
+    "accumulatetime": {
+      "string": "$s passed"
+    },
+    "season": {
+      "lookup": {
+        "1": "Spring",
+        "2": "Summer",
+        "3": "Autumn",
+        "4": "Winter",
+        "5": "Sakura season (20 march to 20 april)"
+      },
+      "string": "$"
+    },
+    "near_count": {
+      "==": "$ nearby uma(s)",
+      ">=": "$+ nearby uma(s)",
+      "<=": "Max $ nearby uma(s)"
+    },
     "bashin_diff_behind": {
       "<=": "≤$ length(s) ahead",
       ">=": "≥$ length(s) ahead"
@@ -116,6 +192,35 @@
     "bashin_diff_infront": {
       "<=": "≤$ length(s) behind",
       ">=": "≥$ length(s) behind"
+    },
+    "running_style_count_senko_otherself": {
+      "string": "$+ other leaders"
+    },
+    "running_style_count_nige_otherself": {
+      "string": "$+ other runners"
+    },
+    "running_style_count_sashi_otherself": {
+      "string": "$+ other betweeners"
+    },
+    "running_style_count_oikomi_otherself": {
+      "string": "$+ other chasers"
+    },
+    "is_temptation": {
+      "lookup": {
+        "1": "Kakari",
+        "2": "Not Kakari"
+      },
+      "string": "$"
+    },
+    "temptation_count": {
+      "string": "Was Kakari $ times"
+    },
+    "is_badstart": {
+      "==": "Start not bad",
+      "!=": "Bad start"
+    },
+    "is_hp_empty_onetime": {
+      "string": "Out of hp"
     }
   }
 }

@@ -22,6 +22,7 @@ const DATA_TL = JSON.parse(fs.readFileSync(DATA_TL_PATH, "utf-8"));
     const db = sqlite3(DB_PATH);
     const stmt = db.prepare(SQL_STMT).raw(true);
     let res = stmt.all();
+    db.close();
     res.forEach(row => {
         let [skill, ...data] = row;
         jsonOut[skill] = `<size=20>${translateData(data)}\\n</size>`;
@@ -38,13 +39,13 @@ function translateData(sqlData) {
         ...skill2] = sqlData;
 
     let outString = translateEffect(type, strength);
-    outString += translateTarget(targetType, targetValue);
+    if (targetType > 1) outString += translateTarget(targetType, targetValue);
 
     if (type2) outString += `, ${translateEffect(type2, strength2)}`;
-    outString += translateTarget(targetType2, targetValue2);
+    if (targetType2 > 1) outString += translateTarget(targetType2, targetValue2);
 
     if (type3) outString += `, ${translateEffect(type3, strength3)}`;
-    outString += translateTarget(targetType3, targetValue3);
+    if (targetType3 > 1) outString += translateTarget(targetType3, targetValue3);
 
     if (duration == -1) { duration = "indefinitely"; }
     else if (duration == 0) { duration = "immediately"; }
@@ -53,16 +54,35 @@ function translateData(sqlData) {
 
     outString += ` when: ${translateConditions(conditions)}`;
 
-    if (skill2.length && skill2[2] != "0") { outString += "\\n" + translateData(skill2) }
+    if (skill2.length && skill2[2] != 0) { outString += "\\n" + translateData(skill2) }
     return outString;
 }
 function translateEffect(type, strength) {
     let effect = DATA_TL.ability_type[type];
     strength = strength / 10000;
-    if (strength > 0) strength = "+" + strength;
-    // if (strength < 40) strength = strength.toLocaleString(undefined, {style: "percent"});
+
+    //todo: find something better, if needed...
+    if (Array.isArray(effect)) {
+        strength = transformValue(strength, effect[1]);
+        effect = effect[0];        
+    }
+
+    // Percentage tresh arbitrarily chosen
+    strength = strength.toLocaleString(undefined, {style: (Math.abs(strength) < 3) ? "percent" : "decimal", signDisplay:"exceptZero", useGrouping: false});
+    
     return `${effect} ${strength}`;
 }
+
+function transformValue(val, transforms) {
+    transforms.split(" ").forEach(f => {
+        let m = f.match(/(\d+)-/)
+        if (m) val = m[1] - val
+        else if (f == "inv") val *= -1
+        else if (f == "%") val /= 100
+    })
+    return val
+}
+
 function translateTarget(type, value) {
     if (type == 0 || type == 1) return "";
     type = DATA_TL.target_type[type];
@@ -82,6 +102,10 @@ function translateConditions(conditions) {
             }
             let text = condData.string || condData[op];
             if (!text) return; //just in case
+            if (Array.isArray(text)) {
+                val = transformValue(val, text[1]);
+                text = text[0];
+            }
             andSplit[idx] = text.replace("$", () => {
                 return condData.lookup?.[val] || val;
             });
