@@ -94,7 +94,7 @@ function translateConditions(conditions) {
     orSplit.forEach((expr, idx) => {
         let andSplit = expr.split("&");
         andSplit.forEach((cond, idx) => {
-            let [, name, op, val] = cond.match(/([a-z_]+)([=!<>]+)(\d+)/);
+            let [, name, op, val] = cond.match(/([a-z_0-9]+)([=!<>]+)(\d+)/);
             let condData = DATA_TL.conditions[name];
             if (!condData) {
                 andSplit[idx] = `${name} ${op} ${val}`; //better text flow in game at the cost of some readability

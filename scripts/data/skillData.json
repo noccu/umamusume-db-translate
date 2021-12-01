@@ -221,6 +221,12 @@
     },
     "is_hp_empty_onetime": {
       "string": "Out of hp"
+    },
+    "activate_count_heal": {
+      "string": "Recover HP $+ times"
+    },
+    "order_rate_in40_continue": {
+      "string": "Stayed in top 40%"
     }
   }
 }
