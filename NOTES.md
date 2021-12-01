@@ -29,10 +29,12 @@ These are in their own csv files.
 | Race Predictions                 | 27                 | ? / ? / yes
 | Skill Desc                       | 48                 | 47 (size 22) / 3 / yes?
 | Skill Name                       | 47                 |
+| SOng Desc                        | 128                |
 | Special Transfer Desc            | 216                | 66
 | Special Transfer Name            | 215                |
 | Special Transfer Requirements    | 217                |
 | Special Transfer Thanks          | 220                |
+| Static (UI) Uma Profile Text     | 175                |
 | Support Bonus                    | 186                |
 | Support Effect Desc              | 154                |
 | Support Effect Name              | 151                |
