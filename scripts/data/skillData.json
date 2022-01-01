@@ -233,6 +233,20 @@
     "hp_per": {
       "<=": "HP% ≤$",
       ">=": "HP% ≥$"
+    },
+    "is_exist_chara_id": {
+      "string": "Char ID $"
+    },
+    "distance_diff_top": {
+      ">=": "Distance to first ≥$"
+    },
+    "activate_count_all": {
+      ">=": "Use ≥$ skills",
+      "<=": "Use ≤$ skills"
+    },
+    "activate_count_middle": {
+      ">=": "Use ≥$ skills (mid)",
+      "<=": "Use ≤$ skills (mid)"
     }
   }
 }
