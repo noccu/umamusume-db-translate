@@ -13,6 +13,17 @@ define GA_SCRIPT
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 endef
 export GA_SCRIPT
+define GA4_SCRIPT
+<script async src="https://www.googletagmanager.com/gtag/js?id=$(GA4_PROPERTY_ID)"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '$(GA4_PROPERTY_ID)');
+</script>
+endef
+export GA4_SCRIPT
 
 .PHONY: all add-analytics append-timestamp build build-json clean
 
@@ -24,6 +35,10 @@ add-analytics: build
 	@test "$(GA_PROPERTY_ID)" = "" \
 	&& echo "$(WARN_COLOR)==> No property id set, skipping!$(NO_COLOR)" \
 	|| echo "$$GA_SCRIPT" >> public/index.html
+	@echo "$(OK_COLOR)==> Adding Google Analytics 4 script to index.html!$(NOCOLOR)"
+	@test "$(GA4_PROPERTY_ID)" = "" \
+	&& echo "$(WARN_COLOR)==> No property id set, skipping!$(NO_COLOR)" \
+	|| echo "$$GA4_SCRIPT" >> public/index.html
 
 append-timestamp: build
 	@echo "$(OK_COLOR)==> Appending timestamp to index.html!$(NOCOLOR)"
