@@ -16,6 +16,7 @@ function saveDB(blobUrl) {
     a.download = "master.mdb"
     a.click()
     setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1000)
+    log({name: "create_db", create_type: "finished"})
 };
 
 function process() {
@@ -46,5 +47,12 @@ function listenFileChange() {
         //* msg
         WORKER.postMessage({ action: "readFile", payload: [e.dataTransfer.files[0], getOvr()] })
     });
+}
+
+function log(data) {
+    if (!gtag) return
+    let name = data.name
+    delete data.name
+    gtag('event', name, data)
 }
 listenFileChange();

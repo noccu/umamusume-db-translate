@@ -79,6 +79,7 @@ async function translate(db, opts) {
 // and fires the translation process with the loaded db
 function readFile(file, opts) {
     if (!file) return;
+    postMessage({action: "log", payload: {name: "create_db", create_type: "start", db_type: opts['opt-skill']}});
     const reader = new FileReader();
 
     reader.addEventListener("load", async () => {
