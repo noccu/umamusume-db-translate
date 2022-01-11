@@ -66,7 +66,7 @@ function translateData(sqlData) {
     return outString;
 }
 function translateEffect(type, strength, strengthMod) {
-    let effect = DATA_TL.ability_type[type],
+    let effect = DATA_TL.ability_type[type] || "Special",
         format = "";
     strength = strength / 10000;
     if (strengthMod > 1) {
@@ -108,6 +108,7 @@ function translateTarget(type, value) {
     return ` to ${val || `${value} closest`} ${type}`;
 }
 function translateConditions(conditions) {
+    if (!conditions) return "Always"
     let orSplit = conditions.split("@");
     orSplit.forEach((expr, idx) => {
         let andSplit = expr.split("&");

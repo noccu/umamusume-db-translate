@@ -19,7 +19,8 @@
     "29": "Kakari Chance",
     "30": "Push Chance",
     "31": ["Acceleration", "m/s/s"],
-    "35": "Target Lane"
+    "35": "Target Lane",
+    "501": "Event-specific?"
   },
   "ability_value_usage": {
     "0": "None",

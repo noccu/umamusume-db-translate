@@ -420,6 +420,8 @@
   "レース終盤が迫ったとき前方にいると\\n速度がわずかに上がる＜長距離＞": "<size=20>Target Speed +0,15m/s for 2.4s when: Long AND Middle leg later half (random) AND In leading 50%\\n</size>",
   "レース中盤に後方にいると\\nしばらくの間速度が少し上がる\\n＜作戦・追込＞": "<size=20>Target Speed +0,25m/s for 4s when: Chaser AND Middle leg (random) AND In trailing 50%\\n</size>",
   "レース中盤に後方にいると\\nしばらくの間速度がちょっと上がる\\n＜作戦・追込＞": "<size=20>Target Speed +0,05m/s for 4s when: Chaser AND Middle leg (random) AND In trailing 50%\\n</size>",
+  "レース後半に速度がすごく上がるが\\nすごく疲れてしまうことがある": "<size=20>Target Speed +0,45m/s, Current HP -100% * Random for 1.8s when: distance_rate_after_random == 50\\n</size>",
+  "レース後半に速度が少し上がるが\\nすごく疲れてしまうことがある": "<size=20>Target Speed +0,25m/s, Current HP -100% * Random for 1.8s when: distance_rate_after_random == 50\\n</size>",
   "レース中盤にアオハル魂が燃え\\nレース中のチームメンバーの\\nスピード合計が高いほど速度が上がる": "<size=20>Target Speed +0,35m/s * Team Speed for 1.8s when: Middle leg (random)\\n</size>",
   "レース中盤にアオハル魂が燃え\\nレース中のチームメンバーのスピード\\n合計が高いほど速度がわずかに上がる": "<size=20>Target Speed +0,15m/s * Team Speed for 1.8s when: Middle leg (random)\\n</size>",
   "レース中盤にアオハル魂が燃え\\nレース中のチームメンバーのスタミナ\\n合計が高いほど持久力が回復する": "<size=20>Current HP +5,5% * Team Stamina immediately when: Middle leg (random)\\n</size>",
@@ -502,5 +504,6 @@
   "最終コーナー走行中に中団で競り合うと\\nちょっと抜け出しやすくなる": "<size=20>Target Speed +0,05m/s, Acceleration +0,1m/s/s for 3s when: Final corner/straight AND In corner AND In trailing 70% AND In leading 70% AND blocked_side_continuetime >= 2\\n</size>",
   "最終直線を好位置で走行中\\n前のウマ娘との距離が近いと\\nちょっと抜け出しやすくなる": "<size=20>Target Speed +0,05m/s, Acceleration +0,1m/s/s for 3s when: Final corner/straight AND On straight AND Position ≤4 AND ≤1 length(s) behind\\n</size>",
   "最終コーナーで先頭から離されていると\\nその距離が遠いほど頑張り続けて\\n速度をちょっとずつ上げる": "<size=20>Target Speed +0,05m/s for 3s when: Final corner/straight AND In corner AND Distance to first ≥7\\n</size>",
-  "レース後半に後方で詰め寄られると\\n幸運パワーが身体に実り\\n速度がわずかに上がる": "<size=20>Target Speed +0,15m/s for 3s when: After 50% distance AND In trailing 60% AND overtake_target_time >= 2\\n</size>"
+  "レース後半に後方で詰め寄られると\\n幸運パワーが身体に実り\\n速度がわずかに上がる": "<size=20>Target Speed +0,15m/s for 3s when: After 50% distance AND In trailing 60% AND overtake_target_time >= 2\\n</size>",
+  "レーシングカーニバルで獲得するカーニ\\nバルptにボーナスが付く（＋{0}％）\\nこのスキルはイベント終了時に消滅する": "<size=20>Event-specific? +1 indefinitely when: Always\\n</size>"
 }

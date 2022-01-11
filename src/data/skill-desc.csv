@@ -420,6 +420,8 @@
 "レース終盤が迫ったとき前方にいると\n速度がわずかに上がる＜長距離＞","<size=22>Increase speed slightly when in the leading group as you approach the Final Leg\n</size>"
 "レース中盤に後方にいると\nしばらくの間速度が少し上がる\n＜作戦・追込＞","<size=22>Chaser・Increase speed lightly for a while when in the trailing pack during the Middle Leg\n</size>"
 "レース中盤に後方にいると\nしばらくの間速度がちょっと上がる\n＜作戦・追込＞","<size=22>Chaser・Subtly increase speed for a while when in the trailing pack during the Middle Leg\n</size>"
+"レース後半に速度がすごく上がるが\nすごく疲れてしまうことがある","<size=22>Your speed will significantly increase in the second half of the race, but sometimes you will also become very tired\n</size>"
+"レース後半に速度が少し上がるが\nすごく疲れてしまうことがある","<size=22>Your speed will increase in the second half of the race, but sometimes you will also become very tired\n</size>"
 "レース中盤にアオハル魂が燃え\nレース中のチームメンバーの\nスピード合計が高いほど速度が上がる","<size=22>Increase speed in the Middle Leg based on total team member speed\n</size>"
 "レース中盤にアオハル魂が燃え\nレース中のチームメンバーのスピード\n合計が高いほど速度がわずかに上がる","<size=22>Increase speed slightly in the Middle Leg based on total team member speed\n</size>"
 "レース中盤にアオハル魂が燃え\nレース中のチームメンバーのスタミナ\n合計が高いほど持久力が回復する","<size=22>Recover stamina in the Middle Leg based on total team member stamina\n</size>"
@@ -503,3 +505,4 @@
 "最終直線を好位置で走行中\n前のウマ娘との距離が近いと\nちょっと抜け出しやすくなる","<size=22>If you're in front after the final corner and about to overtake another girl, your speed and acceleration will increase slightly\n</size>"
 "最終コーナーで先頭から離されていると\nその距離が遠いほど頑張り続けて\n速度をちょっとずつ上げる","<size=22>When away from the front at the last corner, gradually increase your speed slightly, persisting longer the further away you are\n</size>"
 "レース後半に後方で詰め寄られると\n幸運パワーが身体に実り\n速度がわずかに上がる","<size=22>Increase speed slightly when chasing the back of the pack in the Final Leg\n</size>"
+"レーシングカーニバルで獲得するカーニ\nバルptにボーナスが付く（＋{0}％）\nこのスキルはイベント終了時に消滅する","<size=22>Confers a bonus to pts obtained in Racing Carnival (+{0}%). This skill will disappear after the event.\n</size>"
