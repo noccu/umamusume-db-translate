@@ -6,15 +6,18 @@ import { join as pathJoin } from "path";
 const DB_PATH = process.argv[2] || pathJoin(process.env.LOCALAPPDATA, "../LocalLow/Cygames/umamusume/master/master.mdb");
 const DATA_TL_PATH = "scripts/data/skillData.json"
 // H-haha harold.jpg
-const SQL_STMT = `select text, float_ability_time_1, condition_1, ability_type_1_1, float_ability_value_1_1, target_type_1_1, target_value_1_1,
-ability_type_1_2, float_ability_value_1_2, target_type_1_2, target_value_1_2,
-ability_type_1_3, float_ability_value_1_3, target_type_1_3, target_value_1_3,
-float_ability_time_2, condition_2, ability_type_2_1, float_ability_value_2_1, target_type_2_1, target_value_2_1,
-ability_type_2_2, float_ability_value_2_2, target_type_2_2, target_value_2_2,
-ability_type_2_3, float_ability_value_2_3, target_type_2_3, target_value_2_3
-                            from text_data
-                            inner join skill_data on text_data."index" = skill_data.id
-                            where text_data.category = 48;`;
+const SQL_STMT = `select text, 
+            float_ability_time_1, condition_1, float_cooldown_time_1,
+                ability_type_1_1, float_ability_value_1_1, ability_value_usage_1_1,  target_type_1_1, target_value_1_1,
+                ability_type_1_2, float_ability_value_1_2, ability_value_usage_1_2, target_type_1_2, target_value_1_2,
+                ability_type_1_3, float_ability_value_1_3, ability_value_usage_1_3, target_type_1_3, target_value_1_3,
+            float_ability_time_2, condition_2, float_cooldown_time_2,
+                ability_type_2_1, float_ability_value_2_1, ability_value_usage_2_1, target_type_2_1, target_value_2_1,
+                ability_type_2_2, float_ability_value_2_2, ability_value_usage_2_2, target_type_2_2, target_value_2_2,
+                ability_type_2_3, float_ability_value_2_3, ability_value_usage_2_3, target_type_2_3, target_value_2_3
+                    from text_data
+                    inner join skill_data on text_data."index" = skill_data.id
+                    where text_data.category = 48;`;
 const DATA_TL = JSON.parse(fs.readFileSync(DATA_TL_PATH, "utf-8"));
 
 (function main() {
@@ -32,19 +35,19 @@ const DATA_TL = JSON.parse(fs.readFileSync(DATA_TL_PATH, "utf-8"));
 
 function translateData(sqlData) {
     //harold.png
-    let [duration, conditions,
-        type, strength, targetType, targetValue,
-        type2, strength2, targetType2, targetValue2,
-        type3, strength3, targetType3, targetValue3,
+    let [duration, conditions, cooldown,
+        type, strength, strengthMod, targetType, targetValue,
+        type2, strength2, strengthMod2, targetType2, targetValue2,
+        type3, strength3, strengthMod3, targetType3, targetValue3,
         ...skill2] = sqlData;
 
-    let outString = translateEffect(type, strength);
+    let outString = translateEffect(type, strength, strengthMod);
     if (targetType > 1) outString += translateTarget(targetType, targetValue);
 
-    if (type2) outString += `, ${translateEffect(type2, strength2)}`;
+    if (type2) outString += `, ${translateEffect(type2, strength2, strengthMod2)}`;
     if (targetType2 > 1) outString += translateTarget(targetType2, targetValue2);
 
-    if (type3) outString += `, ${translateEffect(type3, strength3)}`;
+    if (type3) outString += `, ${translateEffect(type3, strength3, strengthMod3)}`;
     if (targetType3 > 1) outString += translateTarget(targetType3, targetValue3);
 
     if (duration == -1) { duration = "indefinitely"; }
@@ -52,15 +55,26 @@ function translateData(sqlData) {
     else { duration = "for " + parseInt(duration) / 10000 + "s"; }
     outString += ` ${duration}`;
 
+    cooldown /= 10000 // in seconds, then limit to potentially usable range
+    if (cooldown > 0 && cooldown < 90) {
+        outString += ` (CD ${cooldown}s)`
+    }
+
     outString += ` when: ${translateConditions(conditions)}`;
 
     if (skill2.length && skill2[2] != 0) { outString += "\\n" + translateData(skill2) }
     return outString;
 }
-function translateEffect(type, strength) {
+function translateEffect(type, strength, strengthMod) {
     let effect = DATA_TL.ability_type[type],
         format = "";
     strength = strength / 10000;
+    if (strengthMod > 1) {
+        strengthMod = DATA_TL.ability_value_usage[strengthMod]
+    }
+    else {
+        strengthMod = false
+    }
 
     //todo: find something better, if needed...
     if (Array.isArray(effect)) {
@@ -74,7 +88,7 @@ function translateEffect(type, strength) {
     if (format == "%") { strength = strength.toLocaleString(undefined, {style: "percent", signDisplay:"exceptZero", useGrouping: false, maximumFractionDigits: 1}) }
     else { strength = strength.toLocaleString(undefined, {style: "decimal", signDisplay:"exceptZero", useGrouping: false, maximumFractionDigits: 2}) + format }
     
-    return `${effect} ${strength}`;
+    return `${effect} ${strength}${strengthMod ? " " + strengthMod : ""}`;
 }
 
 function transformValue(val, transforms) {

@@ -21,6 +21,26 @@
     "31": ["Acceleration", "m/s/s"],
     "35": "Target Lane"
   },
+  "ability_value_usage": {
+    "0": "None",
+    "1": "Direct",
+    "2": "* SkillNum",
+    "3": "* Team Speed",
+    "4": "* Team Stamina",
+    "5": "* Team Power",
+    "6": "* Team Guts",
+    "7": "* Team Wis",
+    "8": "* Random",
+    "9": "* Random2",
+    "10": "",
+    "11": "",
+    "12": "",
+    "13": "",
+    "14": "",
+    "15": "* ActivateHealSkillCount",
+    "16": "* FinalCornerEndOrder",
+    "17": "* InvTeamMemberCount"
+  },
   "target_type": {
     "comment": "0 == n/a, 1 == self",
     "4": "in FOV",
