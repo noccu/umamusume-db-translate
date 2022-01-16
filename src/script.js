@@ -56,3 +56,30 @@ function log(data) {
     gtag('event', name, data)
 }
 listenFileChange();
+
+// Who doesn't love stupid ways of solving simple problems?
+function showLastUpdate() {
+    let t, s
+    document.body.childNodes.forEach(node => {
+        if (node.nodeType == Node.COMMENT_NODE) {
+            let m = node.textContent.match("Deploy Timestamp: (.+) ")
+            if (m) {
+                t = new Date(m[1])
+            }
+            else {
+                m = node.textContent.match("SHA: ([0-9a-z]+)")
+                if (m) {
+                    s = m[1]
+                }
+            }
+        }
+    })
+    if (t && s) {
+        document.querySelector("#upd-time").textContent = t.toDateString()
+        let link = document.querySelector("#upd-sha")
+        link.href = `${document.querySelector("#repo-link").textContent}/commit/${s}`
+        link.textContent = s
+    }
+    else document.querySelector("#upd-info").style.visibility = "hidden"
+}
+showLastUpdate()
