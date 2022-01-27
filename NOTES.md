@@ -66,3 +66,4 @@ These don't have too much content to justify creating a new csv file for each on
 | School grade/level | 162                |
 | Lottery rewards    | 177                |
 | Horse & NPC names? | 150 & 182          |
+| Factor names?      | 147                |
