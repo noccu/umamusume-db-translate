@@ -77,7 +77,7 @@ function showLastUpdate() {
     if (t && s) {
         document.querySelector("#upd-time").textContent = t.toDateString()
         let link = document.querySelector("#upd-sha")
-        link.href = `${document.querySelector("#repo-link").textContent}/commit/${s}`
+        link.href = `${document.querySelector("#repo-link").href}/commit/${s}`
         link.textContent = s
     }
     else document.querySelector("#upd-info").style.visibility = "hidden"
