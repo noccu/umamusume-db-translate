@@ -2,7 +2,7 @@
 "天気[雨]で4回以上出走し、3勝する","Enter a race with rainy weather ≥4 times\nWin 3 of them"
 "天気[曇り]で4回以上出走し、3勝する","Enter a race with cloudy weather ≥4 times\nWin 3 of them"
 "天気[雪]で3回以上出走し、2勝する","Enter a race with snowy weather ≥3 times\nWin 2 of them"
-"GⅠに1回以上出走し、\nGⅠ未勝利のまま育成ランクC以上で育成を完了する","<size=22>Enter a GI race at least once and without winning any single GI race\nComplete the training with ≥C rank</size>"
+"GⅠに1回以上出走し、\nGⅠ未勝利のまま育成ランク[C]以上で育成を完了する","<size=22>Enter a GI race at least once and without winning any single GI race\nComplete the training with ≥C rank</size>"
 "ファン数が550000人以上になる","Earn a total of ≥550000 fans"
 "育成中に10回以上出走し、\nかつ出走レースが全てダートのまま育成を完了する","<size=22>Enter ≥10 races and every race has to be dirt\nComplete the training</size>"
 "育成中に10回以上出走し、\nかつ出走レースが全て芝のまま育成を完了する","<size=22>Enter ≥10 races and every race has to be turf\nComplete the training</size>"
