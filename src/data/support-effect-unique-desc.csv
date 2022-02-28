@@ -52,6 +52,6 @@
 "絆ゲージが100以上の時、\n賢さボーナス","Wisdom bonus when bond gauge at 100"
 "絆ゲージが80以上かつ得意トレーニングでない時、トレーニング効果アップ","Training bonus when bong gauge at least 80 and not on specialty"
 "編成しているサポートカードのタイプが5種類以上ならトレーニング効果アップ","Training bonus when support cards are of at least 5 types"
-"最大20万人までファン数が増える度に\nトレーニング効果アップ","Training Bonus for every 200k fans"
+"最大20万人までファン数が増える度に\nトレーニング効果アップ","Training Bonus based on fan count up to 200k fans"
 "絆ゲージが80以上の時、\nスタミナボーナス","Stamina bonus when bond gauge over 80"
 "編成しているサポートカードのタイプが4種類以上ならトレーニング効果アップ","Training bonus when support cards are of at least 4 types"
