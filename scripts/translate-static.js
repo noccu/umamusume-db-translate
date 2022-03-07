@@ -7,13 +7,21 @@ import fs from "fs"
 const FILES = {
         trainerReq: "src/data/trainer-title-requirements.csv",
         missions: "src/data/missions.csv",
-        uma: "./src/data/uma-name.csv"
+        uma: "src/data/uma-name.csv",
+        trTitles: "src/data/trainer-title.csv"
     }
 const PFILES = {};
 const FAN_AMOUNT = {
     "1000万": "10 million",
     "5000万": "50 million",
     "1億": "100 million"
+}
+const TRAINER_TITLE = {
+    "との出会い": "Memories with $",
+    "担当": "$'s Personal Trainer",
+    "専属": "$'s Exclusive Trainer",
+    "名手": "Masterful $ Trainer",
+    "全冠": "Fully-crowned $"
 }
 
 function readFiles() {
@@ -50,6 +58,10 @@ function translate() {
         translateSpecific("star", jpText, PFILES.missions)
         translateSpecific("lbsupp", jpText, PFILES.missions)
         translateSpecific("friend", jpText, PFILES.missions)
+    }
+    for (let [jpText, enText] of Object.entries(PFILES.trTitles)) {
+        if (jpText == "text" || enText) continue; //skip header and translated entries
+        translateSpecific("trTitle", jpText, PFILES.trTitles)
     }
 }
 
@@ -123,6 +135,15 @@ function translateSpecific (type, text, file) {
             let [,umaName] = m, umaNameEn = PFILES.uma[umaName];
             if (umaNameEn) {
                 file[text] = `Reach friendship rank 1 with ${umaNameEn}`;
+            }
+        }
+    }
+    else if (type == "trTitle") {
+        m = text.match(/(.+)(との出会い|担当|専属|名手|全冠)/)
+        if (m) {
+            let [,umaName, title] = m, umaNameEn = PFILES.uma[umaName];
+            if (umaNameEn && title) {
+                file[text] = TRAINER_TITLE[title].replace("$", umaNameEn).replace("s's", "s'");
             }
         }
     }
