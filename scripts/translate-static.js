@@ -8,7 +8,8 @@ const FILES = {
         trainerReq: "src/data/trainer-title-requirements.csv",
         missions: "src/data/missions.csv",
         uma: "src/data/uma-name.csv",
-        trTitles: "src/data/trainer-title.csv"
+        trTitles: "src/data/trainer-title.csv",
+        races: "src/data/race-name.csv"
     }
 const PFILES = {};
 const FAN_AMOUNT = {
@@ -22,6 +23,18 @@ const TRAINER_TITLE = {
     "専属": "$'s Exclusive Trainer",
     "名手": "Masterful $ Trainer",
     "全冠": "Fully-crowned $"
+}
+const CM_GRADE = {
+    "プラチナ": "Platinum",
+    "ゴールド": "Gold",
+    "シルバー": "Silver",
+    "ブロンズ": "Bronze"
+}
+const CM_RESULT = {
+    "伝説的な": "legendary",
+    "偉大な": "glorious",
+    "輝かしい": "notable",
+    "優れた": "remarkable"
 }
 
 function readFiles() {
@@ -42,7 +55,12 @@ function readFiles() {
 
 function translate() {
     for (let [jpText, enText] of Object.entries(PFILES.trainerReq)) {
-        if (jpText == "text" || enText) continue; //skip header and translated entries
+        if (jpText == "text" || enText) {
+            if (enText.includes(" Hai")) {
+                translateSpecific("cmRes", jpText, PFILES.trainerReq)
+            }
+            continue
+        }; //skip header and translated entries
         translateSpecific("g1-3", jpText, PFILES.trainerReq)
         translateSpecific("e4s", jpText, PFILES.trainerReq)
         translateSpecific("fan", jpText, PFILES.trainerReq)
@@ -58,13 +76,23 @@ function translate() {
         translateSpecific("star", jpText, PFILES.missions)
         translateSpecific("lbsupp", jpText, PFILES.missions)
         translateSpecific("friend", jpText, PFILES.missions)
+        translateSpecific("genLimMiss", jpText, PFILES.missions)
     }
     for (let [jpText, enText] of Object.entries(PFILES.trTitles)) {
-        if (jpText == "text" || enText) continue; //skip header and translated entries
+        if (jpText == "text" || enText) {
+            if (enText.includes(" Hai")) {
+                translateSpecific("cmGrade", jpText, PFILES.trTitles)
+            }
+            continue
+        }; //skip header and translated entries
         translateSpecific("trTitle", jpText, PFILES.trTitles)
     }
 }
 
+/**
+ * @param {string} text 
+ * @param {{string: string}} file
+ */
 function translateSpecific (type, text, file) {
     let m;
     if (type == "g1-3") {
@@ -147,11 +175,57 @@ function translateSpecific (type, text, file) {
             }
         }
     }
+    else if (type == "cmGrade") {
+        let enText = file[text]
+        if (!enText.endsWith(" Hai")) return
+        m = text.match(/杯(プラチナ|ゴールド|シルバー|ブロンズ)/)
+        if (m) {
+            let [, grade] = m;
+            if (grade && enText) {
+                file[text] = `${enText} ${CM_GRADE[grade]}`;
+            }
+        }
+    }
+    else if (type == "cmRes") {
+        let enText = file[text]
+        if (enText.length > 22) return
+        m = text.match(/杯で(.+)成績/)
+        if (m) {
+            let [, res] = m;
+            if (res && enText) {
+                file[text] = `Achieve ${CM_RESULT[res]} results in the ${enText}`;
+            }
+        }
+    }
+    else if (type == "genLimMiss") {
+        let out = "", race, txtKey = text;
+        m = text.match(/【(.+)】(.+)/)
+        if (m) {
+            [, race, text] = m
+            if (PFILES.races[race]) out = `[${PFILES.races[race]}] `
+        }
+        if (m = text.match(/育成を(\d+)回完了しよう/)) {
+            let [, n] = m;
+            out += `Complete training ${n} time${n > 1 ? "s" : ""}`;
+        }
+        else if (m = text.match(/育成で(.+)に勝利しよう/)) {
+            let [, r] = m;
+            r = PFILES.races[r]
+            if (r) {
+                out += `Win ${r} in training`;
+            }
+        }
+        else if (text == "限定ミッションをすべてクリアしよう") {
+            out += "Complete all limited missions";
+        }
+        file[txtKey] = out
+    }
 }
 
 function writeFiles() {
     // Don't change files only used for lookup
     delete PFILES.uma;
+    delete PFILES.races;
     for (let [file, content] of Object.entries(PFILES)) {
         let records = []
         for (let [key, val] of Object.entries(content)) {
