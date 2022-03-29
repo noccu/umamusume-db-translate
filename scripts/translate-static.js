@@ -215,6 +215,13 @@ function translateSpecific (type, text, file) {
                 out += `Win ${r} in training`;
             }
         }
+        else if (m = text.match(/育成で(.+)の(\d)着以内に入ろう/)) {
+            let [, r, p] = m;
+            r = PFILES.races[r]
+            if (r) {
+                out += `Finish top ${p} in ${r} during training`;
+            }
+        }
         else if (text == "限定ミッションをすべてクリアしよう") {
             out += "Complete all limited missions";
         }

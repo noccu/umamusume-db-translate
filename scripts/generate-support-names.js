@@ -9,7 +9,8 @@ var FILES = {
         titles: process.argv[2] || "./src/data/support-title.csv",
         umaNames: process.argv[3] || "./src/data/uma-name.csv",
         fullNames: process.argv[4] || "./src/data/support-full-name.csv",
-        uniqueNames: process.argv[5] || "./src/data/support-effect-unique-name.csv"
+        uniqueNames: process.argv[5] || "./src/data/support-effect-unique-name.csv",
+        misc: process.argv[6] || "./src/data/miscellaneous.csv"
     }
 
 function readFiles() {
@@ -40,8 +41,12 @@ function translate(pFiles) {
                 pFiles.uniqueNames[titleName] = fullTitle.replace(/\[|\]/g, ""); //write en pure title, using previous var
             }
         }
+
         if (pFiles.umaNames[umaName]) {
             umaName = pFiles.umaNames[umaName]; //replace var with en ver
+        }
+        else if (pFiles.misc[umaName]) {
+            umaName = pFiles.misc[umaName]; //replace var with en ver
         }
         pFiles.fullNames[jpText] = `${fullTitle} ${umaName}`; //write full name, whichever parts were found
     }
@@ -51,6 +56,7 @@ function writeFiles(pFiles) {
     // Don't change files only used for lookup
     delete pFiles.umaNames;
     delete pFiles.titles;
+    delete pFiles.misc;
     for (let [file, content] of Object.entries(pFiles)) {
         let records = []
         for (let [key, val] of Object.entries(content)) {
