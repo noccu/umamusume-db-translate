@@ -18,7 +18,7 @@ jobs:
       run: make
       env:
         GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
-        GA4_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+        GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
 
     - name: Deploy
       if: success()
