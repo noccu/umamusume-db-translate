@@ -18,7 +18,7 @@
     "28": ["Lane Movement Speed", "%"],
     "29": "Kakari Chance",
     "30": "Push Chance",
-    "31": ["Acceleration", "m/s/s"],
+    "31": ["Acceleration", "m/s²"],
     "35": "Target Lane",
     "501": "Event-specific?"
   },
@@ -59,6 +59,9 @@
     "4": "Chasers",
     "18": "All"
   },
+  "specialId": {
+    "202051": "Change to a very aggressive runner strategy"
+  },
   "conditions": {
     "distance_type": {
       "lookup": {
@@ -72,6 +75,18 @@
     "distance_rate": {
       ">=": "After $% distance",
       "<=": "Before $% distance"
+    },
+    "distance_rate_after_random": {
+      ">=": "After $% distance (random)",
+      "<=": "Before $% distance (random)"
+    },
+    "distance_diff_rate": {
+      ">=": "≥$% from leader",
+      "<=": "≤$% from leader"
+    },
+    "remain_distance": {
+      ">=": "Remaining distance ≥$m",
+      "<=": "Remaining distance ≤$m"
     },
     "is_basis_distance": {
       "lookup": {
@@ -136,19 +151,37 @@
       },
       "==": "$ later half (random)"
     },
+    "phase_firsthalf_random": {
+      "lookup": {
+        "0": "Opening leg",
+        "1": "Middle leg",
+        "2": "Final leg"
+      },
+      "==": "$ first half (random)"
+    },
     "corner": {
       "==": "On straight",
       "!=": "In corner"
     },
     "corner_random": {
-      "==": "Corner $ (random point)"
+      "==": "Corner $ (random)"
+    },
+    "all_corner_random": {
+      "==": "Any corner"
     },
     "straight_random": {
-      "==": "Straight (random point)"
+      "==": "Straight (random)"
+    },
+    "last_straight_random": {
+      "==": "Last straight (random)"
     },
     "is_finalcorner": {
       "==": "Final corner/straight",
       "!=": "Not final corner/straight"
+    },
+    "is_finalcorner_laterhalf": {
+      "==": "Final corner/straight (2nd half)",
+      "!=": "Not final corner/straight (2nd half)"
     },
     "is_lastspurt": {
       "==": "Last spurt",
@@ -160,6 +193,12 @@
         "2": "Downhill"
       },
       "string": "$"
+    },
+    "up_slope_random": {
+      "string": "Uphill"
+    },
+    "down_slope_random": {
+      "string": "Downhill"
     },
     "ground_type": {
       "lookup": {
@@ -230,13 +269,13 @@
     },
     "is_temptation": {
       "lookup": {
-        "1": "Kakari",
-        "2": "Not Kakari"
+        "1": "Tempted",
+        "2": "Not tempted"
       },
       "string": "$"
     },
     "temptation_count": {
-      "string": "Was Kakari $ times"
+      "string": "Was tempted $ times"
     },
     "is_badstart": {
       "==": "Start not bad",
@@ -268,6 +307,87 @@
     "activate_count_middle": {
       ">=": "Use ≥$ skills (mid)",
       "<=": "Use ≤$ skills (mid)"
+    },
+    "blocked_side_continuetime": {
+      ">=": "Blocked (side) for ≥$s"
+    },
+    "blocked_front_continuetime": {
+      ">=": "Blocked (front) for ≥$s"
+    },
+    "blocked_front": {
+      "lookup": {
+        "0": "Unblocked (front)",
+        "1": "Blocked (front)"
+      },
+      "string": "$"
+    },
+    "infront_near_lane_time": {
+      ">=": "Behind an uma for $s"
+    },
+    "is_surrounded": {
+      "lookup": {
+        "0": "Not boxed in",
+        "1": "Boxed in"
+      },
+      "==": "$"
+    },
+    "is_move_lane": {
+      "lookup": {
+        "1": "closer to",
+        "2": "further from"
+      },
+      "string": "Moved $ fence"
+    },
+    "lane_type": {
+      "lookup": {
+        "0": "Inner lane",
+        "1": "Outer lane",
+        "default": "$% away from inner lane"
+      },
+      "==": "$"
+    },
+    "running_style_temptation_count_nige": {
+      ">=": "≥$ tempted runners"
+    },
+    "running_style_temptation_count_senko": {
+      ">=": "≥$ tempted leaders"
+    },
+    "running_style_temptation_count_sashi": {
+      ">=": "≥$ tempted betweeners"
+    },
+    "running_style_temptation_count_oikomi": {
+      ">=": "≥$ tempted chasers"
+    },
+    "temptation_count_infront": {
+      ">=": "≥$ tempted (in front)"
+    },
+    "temptation_count_behind": {
+      ">=": "≥$ tempted (behind)"
+    },
+    "is_behind_in": {
+      "lookup": {
+        "0": "further from",
+        "1": "closer to"
+      },
+      "==": "Uma behind $ fence"
+    },
+    "post_number": {
+      "==": "Post $"
+    },
+    "running_style_count_same": {
+      ">=": "≥$ same strat",
+      "<=": "≤$ same strat"
+    },
+    "running_style_count_same_rate": {
+      ">=": "≥$% same strat",
+      "<=": "≤$% same strat"
+    },
+    "running_style_equal_popularity_one": {
+      "==": "Same strat as fav",
+      "!=": "Different strat as fav"
+    },
+    "overtake_target_time": {
+      ">=": "Is overtake target for ≥$s"
     }
   }
 }

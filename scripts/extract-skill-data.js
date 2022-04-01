@@ -6,12 +6,12 @@ import { join as pathJoin } from "path";
 const DB_PATH = process.argv[2] || pathJoin(process.env.LOCALAPPDATA, "../LocalLow/Cygames/umamusume/master/master.mdb");
 const DATA_TL_PATH = "scripts/data/skillData.json"
 // H-haha harold.jpg
-const SQL_STMT = `select text, 
-            float_ability_time_1, condition_1, float_cooldown_time_1,
+const SQL_STMT = `select text, skill_data.id,
+            float_ability_time_1, precondition_1, condition_1, float_cooldown_time_1,
                 ability_type_1_1, float_ability_value_1_1, ability_value_usage_1_1,  target_type_1_1, target_value_1_1,
                 ability_type_1_2, float_ability_value_1_2, ability_value_usage_1_2, target_type_1_2, target_value_1_2,
                 ability_type_1_3, float_ability_value_1_3, ability_value_usage_1_3, target_type_1_3, target_value_1_3,
-            float_ability_time_2, condition_2, float_cooldown_time_2,
+            float_ability_time_2, precondition_2, condition_2, float_cooldown_time_2,
                 ability_type_2_1, float_ability_value_2_1, ability_value_usage_2_1, target_type_2_1, target_value_2_1,
                 ability_type_2_2, float_ability_value_2_2, ability_value_usage_2_2, target_type_2_2, target_value_2_2,
                 ability_type_2_3, float_ability_value_2_3, ability_value_usage_2_3, target_type_2_3, target_value_2_3
@@ -27,27 +27,27 @@ const DATA_TL = JSON.parse(fs.readFileSync(DATA_TL_PATH, "utf-8"));
     let res = stmt.all();
     db.close();
     res.forEach(row => {
-        let [skill, ...data] = row;
-        jsonOut[skill] = `<size=20>${translateData(data)}\\n</size>`;
+        let [skill, id, ...data] = row;
+        jsonOut[skill] = `<size=18>${translateData(id, data)}\\n</size>`;
     });
     fs.writeFileSync("src/data/alt/skill-desc.json", JSON.stringify(jsonOut, null, 2));
 })();
 
-function translateData(sqlData) {
+function translateData(id, sqlData) {
     //harold.png
-    let [duration, conditions, cooldown,
+    let [duration, precondition, conditions, cooldown,
         type, strength, strengthMod, targetType, targetValue,
         type2, strength2, strengthMod2, targetType2, targetValue2,
         type3, strength3, strengthMod3, targetType3, targetValue3,
         ...skill2] = sqlData;
 
-    let outString = translateEffect(type, strength, strengthMod);
+    let outString = translateEffect(id, type, strength, strengthMod);
     if (targetType > 1) outString += translateTarget(targetType, targetValue);
 
-    if (type2) outString += `, ${translateEffect(type2, strength2, strengthMod2)}`;
+    if (type2) outString += `, ${translateEffect(id, type2, strength2, strengthMod2)}`;
     if (targetType2 > 1) outString += translateTarget(targetType2, targetValue2);
 
-    if (type3) outString += `, ${translateEffect(type3, strength3, strengthMod3)}`;
+    if (type3) outString += `, ${translateEffect(id, type3, strength3, strengthMod3)}`;
     if (targetType3 > 1) outString += translateTarget(targetType3, targetValue3);
 
     if (duration == -1) { duration = "indefinitely"; }
@@ -61,11 +61,14 @@ function translateData(sqlData) {
     }
 
     outString += ` when: ${translateConditions(conditions)}`;
+    if (precondition) outString += ` after: ${translateConditions(precondition)}`
 
-    if (skill2.length && skill2[2] != 0) { outString += "\\n" + translateData(skill2) }
+    if (skill2.length && skill2[2] != 0) { outString += "\\n" + translateData(id, skill2) }
     return outString;
 }
-function translateEffect(type, strength, strengthMod) {
+function translateEffect(id, type, strength, strengthMod) {
+    if (DATA_TL.specialId[id]) return DATA_TL.specialId[id];
+    else if (strength == 0) return "";
     let effect = DATA_TL.ability_type[type] || "Special",
         format = "";
     strength = strength / 10000;
@@ -126,7 +129,7 @@ function translateConditions(conditions) {
                 text = text[0];
             }
             andSplit[idx] = text.replace("$", () => {
-                return condData.lookup?.[val] || val;
+                return condData.lookup?.[val] || condData.lookup?.default || val;
             });
         });
         orSplit[idx] = andSplit.join(" AND ");
