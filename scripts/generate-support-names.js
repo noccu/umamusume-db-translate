@@ -18,13 +18,14 @@ function readFiles() {
     let parsedFiles = {}
 
     function parseRecords(rec, ctx) {
+        if (ctx.error && ctx.error.code === "CSV_RECORD_DONT_MATCH_COLUMNS_LENGTH") return null
         currentFile[rec.text] = rec.translation;
         return null;
     }
 
     for (let file of Object.keys(FILES)) {
         currentFile = {};
-        csvParser(fs.readFileSync(FILES[file], "utf8"), { columns: true, escape: "\\", trim: true, skip_empty_lines: true, on_record: parseRecords })
+        csvParser(fs.readFileSync(FILES[file], "utf8"), { columns: true, escape: "\\", trim: true, skip_empty_lines: true, relax_column_count_less: true, on_record: parseRecords })
         parsedFiles[file] = currentFile;
     }    
     console.log("Files read.");
