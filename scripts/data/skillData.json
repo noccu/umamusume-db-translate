@@ -298,7 +298,7 @@
       "string": "Char ID $"
     },
     "distance_diff_top": {
-      ">=": "Distance to first ≥$"
+      ">=": "Distance to first ≥$m"
     },
     "activate_count_all": {
       ">=": "Use ≥$ skills",
