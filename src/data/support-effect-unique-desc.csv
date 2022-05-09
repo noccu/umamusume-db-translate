@@ -60,3 +60,7 @@
 "編成しているサポートカードのタイプに応じて初期基礎能力がアップ","Initial stat increase per card type in deck"
 "このカードと友情トレーニングをする度に最大5回まで友情ボーナスがアップ","Friendship bonus increases after each friendship training with this card, up to 5 times"
 "絆ゲージが80以上の時、\nスピードボーナス","Speed bonus when bond gauge over 80"
+"絆ゲージが80以上の時、\nパワーボーナス","Power bonus when bond gauge over 80"
+"現在の体力が少ないほど、\n友情ボーナスがアップ","Friendship bonus increases as energy lowers"
+"体力最大値が高いほど、\nトレーニング効果アップ","Training bonus increases based on max energy"
+"パワーボーナスとレースボーナス","Power and Race bonus"
