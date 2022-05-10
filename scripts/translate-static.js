@@ -9,7 +9,9 @@ const FILES = {
         missions: "src/data/missions.csv",
         uma: "src/data/uma-name.csv",
         trTitles: "src/data/trainer-title.csv",
-        races: "src/data/race-name.csv"
+        races: "src/data/race-name.csv",
+        pieces: "src/data/item-uma-pieces.csv",
+        skills: "src/data/skill-name.csv"
     }
 const PFILES = {};
 const FAN_AMOUNT = {
@@ -54,17 +56,7 @@ function readFiles() {
 }
 
 function translate() {
-    for (let [jpText, enText] of Object.entries(PFILES.trainerReq)) {
-        if (jpText == "text" || enText) {
-            if (enText.includes(" Hai")) {
-                translateSpecific("cmRes", jpText, PFILES.trainerReq)
-            }
-            continue
-        }; //skip header and translated entries
-        translateSpecific("g1-3", jpText, PFILES.trainerReq)
-        translateSpecific("e4s", jpText, PFILES.trainerReq)
-        translateSpecific("fan", jpText, PFILES.trainerReq)
-    }
+    //missions first so trainer resq can copy from it
     for (let [jpText, enText] of Object.entries(PFILES.missions)) {
         if (jpText == "text" || enText) continue; //skip header and translated entries
         translateSpecific("g1-3", jpText, PFILES.missions)
@@ -77,6 +69,19 @@ function translate() {
         translateSpecific("lbsupp", jpText, PFILES.missions)
         translateSpecific("friend", jpText, PFILES.missions)
         translateSpecific("genLimMiss", jpText, PFILES.missions)
+        translateSpecific("skillMis", jpText, PFILES.missions)
+    }
+    for (let [jpText, enText] of Object.entries(PFILES.trainerReq)) {
+        if (jpText == "text" || enText) {
+            if (enText.includes(" Hai")) {
+                translateSpecific("cmRes", jpText, PFILES.trainerReq)
+            }
+            continue
+        }; //skip header and translated entries
+        if (PFILES.missions[jpText]) PFILES.trainerReq[jpText] = PFILES.missions[jpText] //copy dupes
+        translateSpecific("g1-3", jpText, PFILES.trainerReq)
+        translateSpecific("e4s", jpText, PFILES.trainerReq)
+        translateSpecific("fan", jpText, PFILES.trainerReq)
     }
     for (let [jpText, enText] of Object.entries(PFILES.trTitles)) {
         if (jpText == "text" || enText) {
@@ -86,6 +91,12 @@ function translate() {
             continue
         }; //skip header and translated entries
         translateSpecific("trTitle", jpText, PFILES.trTitles)
+    }
+    for (let [jpText, enText] of Object.entries(PFILES.pieces)) {
+        if (jpText == "text" || enText) {
+            continue
+        }; //skip header and translated entries
+        translateSpecific("piece", jpText, PFILES.pieces)
     }
 }
 
@@ -198,12 +209,15 @@ function translateSpecific (type, text, file) {
         }
     }
     else if (type == "genLimMiss") {
-        let out = "", race, txtKey = text;
+        let out = "", race, txtKey = text, found = true;
         m = text.match(/【(.+)】(.+)/)
         if (m) {
             [, race, text] = m
-            if (PFILES.races[race]) out = `[${PFILES.races[race]}] `
+            if (race == "デイリー") out = `[Daily] `
+            else if (race == "期間限定") out = `[Time-Limited] `
+            else if (PFILES.races[race]) out = `[${PFILES.races[race]}] `
         }
+
         if (m = text.match(/育成を(\d+)回完了しよう/)) {
             let [, n] = m;
             out += `Complete training ${n} time${n > 1 ? "s" : ""}`;
@@ -215,17 +229,61 @@ function translateSpecific (type, text, file) {
                 out += `Win ${r} in training`;
             }
         }
-        else if (m = text.match(/育成で(.+)の(\d)着以内に入ろう/)) {
+        else if (m = text.match(/育成で(.+)の?(\d)着以内に入ろう/)) {
             let [, r, p] = m;
             r = PFILES.races[r]
             if (r) {
                 out += `Finish top ${p} in ${r} during training`;
             }
         }
+        else if (m = text.match(/(.+)（(.+)）に出走しよう/)) {
+            let [, umaJp, diff] = m;
+            let umaEn = PFILES.uma[umaJp]
+            if (umaEn) {
+                out += `Challenge ${umaEn} (${diff})`;
+            }
+        }
+        else if (m = text.match(/カーニバルPtを累計\\n(\d+)Pt獲得しよう/)) {
+            let [, pt] = m;
+            if (pt) {
+                out += `Obtain ${pt} total Carnival Pts`;
+            }
+        }
         else if (text == "限定ミッションをすべてクリアしよう") {
             out += "Complete all limited missions";
         }
-        file[txtKey] = out
+        else {
+            found = false
+        }
+
+        if (found){
+            file[txtKey] = out
+        }
+    }
+    else if (type == "piece") {
+        m = text.match(/(.+)のピース/)
+        if (m) {
+            let [,umaName] = m, umaNameEn = PFILES.uma[umaName];
+            if (umaNameEn) {
+                file[text] = `${umaNameEn}'s piece`;
+            }
+        }
+    }
+    else if (type == "skillMis") {
+        m = text.match(/(.+)を獲得し育成完了/)
+        if (m) {
+            let [,skills] = m
+            skills = skills.replace("\\n", "").split("/")
+            let i = 0
+            for (let skill of skills) {
+                let skillEn = PFILES.skills[skill];
+                if (skillEn) {
+                    skills[i] = skillEn
+                }
+                i++
+            }
+            file[text] = `Complete training having acquired ${skills.join(", ")}`;
+        }
     }
 }
 
@@ -233,6 +291,7 @@ function writeFiles() {
     // Don't change files only used for lookup
     delete PFILES.uma;
     delete PFILES.races;
+    delete PFILES.skills;
     for (let [file, content] of Object.entries(PFILES)) {
         let records = []
         for (let [key, val] of Object.entries(content)) {
