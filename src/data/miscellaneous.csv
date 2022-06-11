@@ -1,11 +1,7 @@
 "text", "translation"
-
-"8 - Profile, Dormitory"
 "栗東寮","Ritto Dorm"
 "美浦寮","Miho Dorm"
 "一人暮らし","Lives alone"
-
-"31 & 34 - Racetrack names (Name Racecourse)"
 "札幌レース場","Sapporo RC"
 "函館レース場","Hakodate RC"
 "新潟レース場","Niigata RC"
@@ -17,8 +13,6 @@
 "阪神レース場","Hanshin RC"
 "小倉レース場","Kokura RC"
 "大井レース場","Ooi RC"
-
-"35 - Racetrack Shorts (max 3 characters)"
 "札幌","SAP"
 "函館","HAK"
 "新潟","NII"
@@ -30,12 +24,8 @@
 "阪神","HAN"
 "小倉","KOK"
 "大井","OOI"
-
-"114 - Uma piece descriptions"
 "選択したウマ娘のピース。育成ウマ娘の解放や才能開花などに使用できる。","A piece of the selected Uma Musu.\nCan be used to obtain or upgrade Uma Musu."
 "育成ウマ娘の解放や才能開花などで使用。\n育成ウマ娘ごとの願いが結晶化された専用のピース。","Used to obtain Uma Musu and develop their talents.\nA special piece with the crystallized wishes of a horse girl."
-
-"121 - Fan Pyramid"
 "デビュー","Debut"
 "未勝利","Maiden"
 "ビギナー","Beginner"
@@ -46,14 +36,10 @@
 "スター","Star"
 "トップスター","Top Star"
 "レジェンド","Legend"
-
-"136 - A few random NPC names...?"
 "観客A","Spectator A"
 "観客B","Spectator B"
 "2人","Two people"
 "3人","Three people"
-
-"138 - Trainings"
 "芝","Turf Track"
 "ランニングマシン","Running Machine"
 "フィットネスバイク","Fitness Bike"
@@ -89,23 +75,15 @@
 "早押しクイズ","Quiz"
 "海","Sea"
 "温泉","Hot Springs"
-
-"147 - Factors names?"
 "URAシナリオ","URA Scenario"
 "アオハル杯シナリオ","Aoharu Scenario"
-
-"162 – School grade/level"
 "中等部","Middle School"
 "高等部","High School"
-
-"177 – Lottery rewards"
 "温泉旅行券","Onsen Ticket"
 "特上にんじんハンバーグ","Special Hamburg Carrot"
 "にんじん山盛り","Pile of Carrots"
 "にんじん1本","One Carrot"
 "ティッシュ","Tissue"
-
-"182 & 170 - Mostly horse names (already translated by 6) with some NPCs, listed here"
 "ハヤカワタヅナ","<i>Hayakawa Tazuna</i>"
 "アキカワヤヨイ","<i>Akikawa Yayoi</i>"
 "オトナシエツコ","<i>Otonashi Etsuko</i>"
