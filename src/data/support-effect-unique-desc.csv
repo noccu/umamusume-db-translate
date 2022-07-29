@@ -73,3 +73,5 @@
 "同じトレーニングに参加したサポートカードが多いほどトレーニング効果アップ","Training bonus increasing with supports on same training"
 "絆ゲージが100以上の時、\n賢さ友情回復量アップ","Wisdom Training Recovery Up at maxed bond"
 "絆ゲージが80以上の時、\nパワーボーナスとスキルPtボーナス","Power and Skill Pt bonus when bond gauge over 80"
+"参加したトレーニングのトレーニング\nLvが高いほどトレーニング効果アップ","Increase Training Bonus with level of training facility"
+"参加したトレーニングの失敗率が0%になることがある","Chance to reduce training fail rate to 0%"
